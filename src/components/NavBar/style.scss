@@ -1,0 +1,11 @@
+@import "../../styles/variables.scss";
+header {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+
+  h1 {
+    color: $font-primary;
+    font-size: 2rem;
+  }
+}
