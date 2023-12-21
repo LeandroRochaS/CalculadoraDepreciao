@@ -3,9 +3,12 @@ import { useRef } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import Navbar from "../../components/NavBar";
 import "./style.scss";
+import { validaInputs } from "../../scripts/validation";
 import { exportTableToPdf } from "../../scripts/tabela";
 import excelIcon from "../../assets/svgs/icons8-excel.svg";
 import pdfIcon from "../../assets/svgs/pdf-file-2-svgrepo-com.svg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface TableData {
   ano: number;
@@ -22,6 +25,7 @@ export default function Home() {
 
   function calcular() {
     console.log("Calculando");
+    validaInputs();
     const valorNovo = parseFloat(
       (document.getElementById("valorNovo") as HTMLInputElement)?.value || "0"
     );
@@ -44,10 +48,10 @@ export default function Home() {
       anosDepre === 0 ||
       metodo === 0
     ) {
-      exibirErro("calcularBtn", "Preencha todos os campos corretamente");
+      toastError();
       return;
     } else {
-      ocultarErro("calcularBtn");
+      toastSucess();
     }
 
     const data: TableData[] = [];
@@ -81,34 +85,30 @@ export default function Home() {
     setResultData(data);
   }
 
-  function exibirErro(idElemento: string, mensagem: string) {
-    const elemento = document.getElementById(idElemento) as HTMLElement | null;
-    if (elemento) elemento.style.border = "1px solid red";
-
-    // Adiciona ou atualiza uma mensagem de erro
-    let errorElement = document.getElementById(idElemento + "Error");
-    if (!errorElement) {
-      errorElement = document.createElement("p");
-      errorElement.classList.add("error");
-      errorElement.id = idElemento + "Error";
-
-      if (elemento && elemento.parentNode) {
-        elemento.parentNode.appendChild(errorElement);
-      }
-    }
-
-    errorElement.innerText = mensagem;
+  function toastSucess() {
+    toast.success("Calculado com Sucesso !", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
 
-  function ocultarErro(idElemento: string) {
-    const elemento = document.getElementById(idElemento);
-    if (elemento) elemento.style.border = "1px solid #ccc";
-
-    // Remove a mensagem de erro se existir
-    const errorElement = document.getElementById(idElemento + "Error");
-    if (errorElement) {
-      errorElement.remove();
-    }
+  function toastError() {
+    toast.error("Dados inválidos", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
 
   function exportTableToExcel() {
@@ -120,8 +120,20 @@ export default function Home() {
     <>
       <body>
         <Navbar />
-
         <section className="container">
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+
           <div className="twoCards">
             <div className="card">
               <div className="card-container-text">
@@ -181,6 +193,9 @@ export default function Home() {
           <button className="calcularBtn" onClick={calcular}>
             Calcular
           </button>
+          <button className="LimparBtn" onClick={location.reload}>
+            Limpar
+          </button>
           <div className="result-container">
             <div className="card-result">
               <div className="titleResult">
@@ -188,7 +203,8 @@ export default function Home() {
                 <div className="buttonExport">
                   <button
                     onClick={() => {
-                      exportTableToExcel();
+                      if (resultData.length > 0) exportTableToExcel();
+                      else console.log("Não foi possível exportar");
                     }}
                     className="exportarBtn"
                   >
@@ -199,8 +215,10 @@ export default function Home() {
                       const table = document.getElementById(
                         "table"
                       ) as HTMLTableElement | null;
-                      if (table) {
+                      if (resultData.length > 0 && table !== null) {
                         exportTableToPdf(table);
+                      } else {
+                        console.log("Não foi possível exportar");
                       }
                     }}
                     className="exportarBtn"
