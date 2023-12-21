@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useRef } from "react";
+import { utils, writeFileXLSX } from "xlsx";
 import Navbar from "../../components/NavBar";
 import "./style.scss";
+import { exportTableToPdf } from "../../scripts/tabela";
+import excelIcon from "../../assets/icons8-excel.svg";
+import pdfIcon from "../../assets/pdf-file-2-svgrepo-com.svg";
 
 interface TableData {
   ano: number;
@@ -13,6 +18,7 @@ interface TableData {
 
 export default function Home() {
   const [resultData, setResultData] = useState<TableData[]>([]);
+  const tbl = useRef(null);
 
   function calcular() {
     console.log("Calculando");
@@ -105,6 +111,11 @@ export default function Home() {
     }
   }
 
+  function exportTableToExcel() {
+    const wb = utils.table_to_book(tbl.current);
+    writeFileXLSX(wb, "SheetJSReactExport.xlsx");
+  }
+
   return (
     <>
       <body>
@@ -172,8 +183,34 @@ export default function Home() {
           </button>
           <div className="result-container">
             <div className="card-result">
-              <h2>Resultado do Cálculo</h2>
-              <table className="tabela-resultado">
+              <div className="titleResult">
+                <h2>Resultado do Cálculo</h2>
+                <div className="buttonExport">
+                  <button
+                    onClick={() => {
+                      exportTableToExcel();
+                    }}
+                    className="exportarBtn"
+                  >
+                    <img src={excelIcon} alt="excel icon" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      const table = document.getElementById(
+                        "table"
+                      ) as HTMLTableElement | null;
+                      if (table) {
+                        exportTableToPdf(table);
+                      }
+                    }}
+                    className="exportarBtn"
+                  >
+                    <img src={pdfIcon} alt="pdf icon" />
+                  </button>
+                </div>
+              </div>
+
+              <table id="table" ref={tbl} className="tabela-resultado">
                 <thead>
                   <tr>
                     <th>Ano</th>
