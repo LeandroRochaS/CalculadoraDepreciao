@@ -4,8 +4,8 @@ import { utils, writeFileXLSX } from "xlsx";
 import Navbar from "../../components/NavBar";
 import "./style.scss";
 import { exportTableToPdf } from "../../scripts/tabela";
-import excelIcon from "../../assets/icons8-excel.svg";
-import pdfIcon from "../../assets/pdf-file-2-svgrepo-com.svg";
+import excelIcon from "../../assets/svgs/icons8-excel.svg";
+import pdfIcon from "../../assets/svgs/pdf-file-2-svgrepo-com.svg";
 
 interface TableData {
   ano: number;
