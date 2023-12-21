@@ -14,8 +14,7 @@
   padding: 20px 0;
   max-width: 400px;
   width: 100%;
-  height: 100px;
-
+  height: 150px;
   margin-bottom: 2rem;
 
   background: #fff;
@@ -90,13 +89,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .card-result {
-  margin: 0 auto;
-  position: absolute;
-  top: 55%;
+  margin-top: 2rem;
   max-width: 800px;
+  width: 100%;
   min-height: 300px;
   padding: 0 10px;
 
@@ -114,9 +113,10 @@
 /* style.scss */
 
 .tabela-resultado {
+  max-width: 100%;
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
+  margin: 20px auto;
   border-radius: 6px;
   text-align: center;
 }
@@ -124,14 +124,65 @@
 .tabela-resultado th,
 .tabela-resultado td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 5px;
   text-align: left;
 }
 
 .tabela-resultado th {
   background-color: #f2f2f2;
+  font-size: 0.8rem;
 }
 
 .tabela-resultado tbody tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+@media (max-width: 768px) {
+  table {
+    display: block;
+    width: 100%;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  table tbody tr {
+    display: flex;
+    width: 45%;
+    flex-direction: column;
+    border-bottom: 1px solid #ddd;
+  }
+
+  table tbody tr td {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .card {
+    gap: 10px;
+    margin-bottom: 20px;
+    input {
+      width: 80%;
+    }
+  }
+
+  .twoCards {
+    flex-direction: column;
+    width: 90%;
+    gap: 0;
+  }
+
+  .result-container {
+    width: 90%;
+  }
 }
