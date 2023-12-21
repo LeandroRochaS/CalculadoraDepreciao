@@ -13,3 +13,7 @@ export function validaInputs() {
     }
   });
 }
+
+export function limparInputs() {
+  location.reload();
+}

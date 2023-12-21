@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { utils, writeFileXLSX } from "xlsx";
 import Navbar from "../../components/NavBar";
 import "./style.scss";
-import { validaInputs } from "../../scripts/validation";
+import { limparInputs, validaInputs } from "../../scripts/validation";
 import { exportTableToPdf } from "../../scripts/tabela";
 import excelIcon from "../../assets/svgs/icons8-excel.svg";
 import pdfIcon from "../../assets/svgs/pdf-file-2-svgrepo-com.svg";
@@ -193,7 +193,7 @@ export default function Home() {
           <button className="calcularBtn" onClick={calcular}>
             Calcular
           </button>
-          <button className="LimparBtn" onClick={location.reload}>
+          <button className="LimparBtn" onClick={limparInputs}>
             Limpar
           </button>
           <div className="result-container">

@@ -87,6 +87,25 @@
   }
 }
 
+.LimparBtn {
+  width: 14rem;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background: $border-primary;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 600ms;
+
+  &:hover {
+    background: darken($border-primary, 10%);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+}
+
 .result-container {
   display: flex;
   justify-content: center;
