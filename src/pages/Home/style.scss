@@ -82,7 +82,9 @@
   transition: all 600ms;
 
   &:hover {
-    background: darken($border-primary, 10%);
+    background: transparent;
+    color: $border-primary;
+    border: 1px solid $border-primary;
     transform: scale3d(1.05, 1.05, 1.05);
   }
 }
@@ -101,7 +103,9 @@
   transition: all 600ms;
 
   &:hover {
-    background: darken($border-primary, 10%);
+    background: transparent;
+    color: $border-primary;
+    border: 1px solid $border-primary;
     transform: scale3d(1.05, 1.05, 1.05);
   }
 }
