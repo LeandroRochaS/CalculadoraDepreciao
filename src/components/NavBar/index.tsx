@@ -5,8 +5,9 @@ export default function Navbar() {
     <>
       <header>
         <div>
-          <h1> Calculadora de depreciação </h1>
+          <h1> Calculadora de Depreciação </h1>
         </div>
+        <div></div>
       </header>
     </>
   );

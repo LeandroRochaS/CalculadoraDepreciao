@@ -94,9 +94,44 @@
 
 .card-result {
   margin: 0 auto;
-  background-color: #fff;
   position: absolute;
-  top: 60%;
-  max-width: 600px;
-  min-height: 150px;
+  top: 55%;
+  max-width: 800px;
+  min-height: 300px;
+  padding: 0 10px;
+
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid $border-primary;
+
+  h2 {
+    color: $font-primary;
+    text-align: center;
+    margin: 5px 0;
+  }
+}
+
+/* style.scss */
+
+.tabela-resultado {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.tabela-resultado th,
+.tabela-resultado td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabela-resultado th {
+  background-color: #f2f2f2;
+}
+
+.tabela-resultado tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
