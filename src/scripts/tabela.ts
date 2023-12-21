@@ -18,10 +18,8 @@ export function exportTableToPdf(table: HTMLTableElement) {
   // Criar um novo documento PDF
   const doc = new jspdf();
 
-  // Adicionar título ao PDF
-  doc.text("Relatorio de Depreciação", 10, 10);
+  doc.text("Relatório de Depreciação", 10, 10);
 
-  // Gerar tabela no PDF
   let y = 20;
   doc.setFontSize(8); // Reduzir o tamanho da fonte para 8 pontos
 
@@ -36,5 +34,17 @@ export function exportTableToPdf(table: HTMLTableElement) {
   }
 
   // Salvar o PDF
-  doc.save("tabela.pdf");
+  doc.save(`RelatorioDeprecicao-${dataHorarioNow()}.pdf`);
+}
+
+export function dataHorarioNow() {
+  const hoje = new Date();
+  const dia = hoje.getDate().toString().padStart(2, "0");
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+  const ano = hoje.getFullYear();
+  const horario = hoje.toTimeString().slice(0, 8);
+  console.log(horario);
+
+  const dataAtual = `${dia} / ${mes} / ${ano} / ${horario}`;
+  return dataAtual;
 }
