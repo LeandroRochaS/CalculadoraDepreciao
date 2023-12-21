@@ -122,7 +122,7 @@ export default function Home() {
 
   return (
     <>
-      <body>
+      <section className="bodyContent">
         <Navbar />
         <section className="container">
           <ToastContainer
@@ -259,7 +259,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </body>
+      </section>
     </>
   );
 }
