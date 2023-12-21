@@ -114,6 +114,30 @@
   }
 }
 
+.exportarBtn {
+  text-align: right;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  img {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.titleResult {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonExport {
+  margin-left: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
 /* style.scss */
 
 .tabela-resultado {
