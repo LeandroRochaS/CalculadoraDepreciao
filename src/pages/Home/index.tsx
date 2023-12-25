@@ -9,6 +9,7 @@ import excelIcon from "../../assets/svgs/icons8-excel.svg";
 import pdfIcon from "../../assets/svgs/pdf-file-2-svgrepo-com.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ExplainModal from "../../components/ExplainModal";
 
 interface TableData {
   ano: number;
@@ -42,6 +43,8 @@ export default function Home() {
       10
     );
 
+    console.log(valorNovo, valorResidual, anosDepre, metodo);
+
     if (
       valorNovo === 0 ||
       valorResidual === 0 ||
@@ -58,16 +61,24 @@ export default function Home() {
     let valorContabilInicial = valorNovo;
     const taxaDepreciacao = 100 / anosDepre;
 
+    let montanteDepreciacao =
+      metodo === 1 ? (valorNovo - valorResidual) / anosDepre : 0;
+
     for (let ano = 1; ano <= anosDepre; ano++) {
-      const montanteDepreciacao =
-        metodo === 1
-          ? (valorContabilInicial - valorResidual) / anosDepre
-          : valorContabilInicial * (taxaDepreciacao / 100);
+      montanteDepreciacao =
+        metodo === 2
+          ? (valorContabilInicial * taxaDepreciacao) / 100
+          : montanteDepreciacao;
+
+      metodo === 1
+        ? (valorContabilInicial - valorResidual) / anosDepre
+        : valorContabilInicial * (taxaDepreciacao / 100);
 
       const montanteDepreciacaoAcumulada =
         ano === 1
           ? montanteDepreciacao
           : data[ano - 2].montanteDepreciacaoAcumulada + montanteDepreciacao;
+
       const valorContabilFinal = valorContabilInicial - montanteDepreciacao;
 
       data.push({
@@ -79,11 +90,15 @@ export default function Home() {
         valorContabilFinal,
       });
 
+      console.log(ano) + " " + resultData;
+
       valorContabilInicial = valorContabilFinal;
     }
 
     setResultData(data);
   }
+
+  console.log(resultData);
 
   function toastSucess() {
     toast.success("Calculado com Sucesso !", {
@@ -229,6 +244,7 @@ export default function Home() {
                   >
                     <img src={pdfIcon} alt="pdf icon" />
                   </button>
+                  <ExplainModal />
                 </div>
               </div>
 
